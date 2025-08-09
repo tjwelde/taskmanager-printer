@@ -1,0 +1,20 @@
+[Unit]
+Description=Taskmanager Printer Server
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=tjw
+WorkingDirectory=/home/tjw/projects/taskmanager-printer
+Environment="PYTHONBUFFERED=1"
+ExecStart=/home/tjw/projects/taskmanager-printer/.venv/bin/uvicorn main:app --host 0.0.0.0 --port 8000
+Restart=on-failure
+# Optional hardening:
+NoNewPrivileges=yes
+ProtectSystem=full
+#ProtectHome=yes
+PrivateTmp=yes
+
+[Install]
+WantedBy=multi-user.target
